@@ -6,10 +6,11 @@
 
     <modelVersion>4.0.0</modelVersion>
 
+    <!-- ✅ CORRECT SPRING BOOT VERSION -->
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>4.0.1</version>
+        <version>3.2.3</version>
         <relativePath/>
     </parent>
 
@@ -19,72 +20,73 @@
     <packaging>jar</packaging>
 
     <name>paysim</name>
-    <description>PaySim – Banking Sandbox roduction Simulator</description>
+    <description>PaySim – Banking Sandbox And Production Simulator</description>
 
     <properties>
         <java.version>21</java.version>
     </properties>
 
+    <!-- ========================= -->
+    <!-- DEPENDENCIES -->
+    <!-- ========================= -->
     <dependencies>
 
-        <!-- ========================= -->
-        <!-- WEB / REST API -->
-        <!-- ========================= -->
+        <!-- WEB / REST -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
-        <!-- ========================= -->
         <!-- JPA / HIBERNATE -->
-        <!-- ========================= -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
 
-        <!-- ========================= -->
-        <!-- SANDBOX DB (H2) -->
-        <!-- ========================= -->
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
-        </dependency>
-
-        <!-- ========================= -->
-        <!-- PROD DB (MySQL) -->
-        <!-- ========================= -->
+        <!-- MYSQL (USED FOR BOTH SANDBOX & PROD IN YOUR CASE) -->
         <dependency>
             <groupId>com.mysql</groupId>
             <artifactId>mysql-connector-j</artifactId>
             <scope>runtime</scope>
         </dependency>
 
-        <!-- ========================= -->
         <!-- LOMBOK -->
-        <!-- ========================= -->
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
 
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- TESTING -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
+    <!-- ========================= -->
+    <!-- BUILD -->
+    <!-- ========================= -->
     <build>
         <plugins>
-
-            <!-- Spring Boot Plugin -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
         </plugins>
     </build>
+
+    <!-- MAVEN PROFILES -->
+
     <profiles>
-        <!-- SANDBOX profile -->
         <profile>
             <id>sandbox</id>
             <properties>
@@ -92,19 +94,10 @@
             </properties>
         </profile>
 
-        <!-- PROD profile -->
         <profile>
             <id>prod</id>
             <properties>
                 <spring.profiles.active>prod</spring.profiles.active>
-            </properties>
-        </profile>
-
-        <!-- dm profile -->
-        <profile>
-            <id>dm</id>
-            <properties>
-                <spring.profiles.active>dm</spring.profiles.active>
             </properties>
         </profile>
     </profiles>

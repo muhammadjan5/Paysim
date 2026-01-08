@@ -23,4 +23,5 @@ public class TransactionController {
         return ResponseEntity.status(202)
                 .body(transactionService.deposit(username, amount));
     }
+
 }
